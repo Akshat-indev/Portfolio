@@ -1,0 +1,24 @@
+.viewportShell {
+  position: relative;
+  min-height: 100svh;
+  background-color: var(--color-bg);
+  padding: var(--frame-top-bar) var(--frame-inset) var(--frame-inset);
+}
+
+.framedContent {
+  position: relative;
+  width: 100%;
+  border-radius: var(--frame-radius);
+  overflow: hidden;
+}
+
+/* When adaptive navigation switches to Tania's left sidebar (768px..1079px),
+   shift the hero content cleanly inside the outer frame without overlap */
+.framedContent[data-nav-mode='sidebar'] {
+  padding-left: 220px;
+}
+
+/* When adaptive navigation switches to compact mobile bar (< 768px) */
+.framedContent[data-nav-mode='mobile'] {
+  padding-top: 48px;
+}

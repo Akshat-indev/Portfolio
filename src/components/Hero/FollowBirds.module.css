@@ -1,0 +1,56 @@
+.stage {
+  position: relative;
+  display: inline-block;
+  --bird-size: 1.35;
+}
+
+.followLink {
+  position: relative;
+  z-index: 1;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Birds use the approved secondary cyan accent (#00A0FC) from 109ichiki */
+.bird {
+  --s: calc(var(--bird-size) * var(--scale, 1));
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  will-change: transform, opacity;
+  filter: hue-rotate(var(--dh, 0deg));
+}
+
+.bird svg {
+  position: absolute;
+  width: calc(var(--s) * 1em);
+  height: calc(var(--s) * 1em);
+  left: calc(var(--s) * -0.5em);
+  top: calc(var(--s) * -0.78em);
+  fill: var(--color-accent-secondary);
+  display: block;
+  overflow: visible;
+}
+
+.bird :global(.wing) {
+  fill: var(--color-accent-secondary);
+  opacity: 0.82;
+}
+
+.bird :global(.eye) {
+  fill: var(--color-bg);
+}
+
+.bird :global(.legs path),
+.bird :global(.toes) {
+  fill: none;
+  stroke: var(--color-accent-secondary);
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+}

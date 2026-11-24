@@ -1,0 +1,105 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Jhey Tompkins .link-prose: 2px accent underline -> inverted solid accent fill on hover */
+.link-prose {
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 2px;
+  transition: background-color var(--transition-ui), color var(--transition-ui);
+}
+
+.link-prose:hover,
+.link-prose:focus-visible {
+  background-color: var(--color-accent);
+  color: var(--color-accent-ink);
+  outline: none;
+}
+
+/* Jhey Tompkins .link-ui: crisp accent color shift on hover/focus */
+.link-ui {
+  transition: color var(--transition-ui);
+}
+
+.link-ui:hover,
+.link-ui:focus-visible {
+  color: var(--color-accent);
+  outline: none;
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,181 @@
+.heading {
+  font-family: var(--font-heading);
+  font-size: clamp(3.6rem, 2.9rem + 2.6vw, 5.25rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  overflow: visible;
+}
+
+.overlayHeading {
+  pointer-events: none;
+}
+
+.maskedClone {
+  color: var(--color-accent);
+  text-shadow: 0 0 12px rgba(252, 100, 244, 0.45);
+}
+
+.wordmarkRow {
+  display: inline-flex;
+  align-items: baseline;
+  overflow: visible;
+}
+
+.letters {
+  display: inline-block;
+}
+
+/* Invisible mirror of "Akshat" on the top overlay layer for exact subpixel alignment */
+.lettersGhost {
+  display: inline-block;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Reserves layout width in base/clone layers without rendering a duplicate static dot */
+.periodReserve {
+  display: inline-block;
+  visibility: hidden;
+}
+
+.periodSlot {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+/* Joined ride group: crane + actual '.' descend together from above viewport */
+.rideGroup {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+  transform: translateY(-22px);
+}
+
+.periodAnimated {
+  display: inline-block;
+  color: var(--color-accent);
+  transform: translateY(22px);
+}
+
+.armSvg {
+  position: absolute;
+  left: 50%;
+  bottom: 0.12em;
+  width: 0.62em;
+  height: 1.85em;
+  transform: translateX(-50%) translateY(-760px);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.cable {
+  stroke: var(--color-text-muted);
+}
+
+.hub {
+  fill: var(--color-text-muted);
+}
+
+.claw {
+  stroke: var(--color-text);
+  fill: none;
+  transform-box: fill-box;
+}
+
+.clawLeft {
+  transform-origin: top right;
+  --closed: 0deg;
+  --open: 25deg;
+}
+
+.clawRight {
+  transform-origin: top left;
+  --closed: 0deg;
+  --open: -25deg;
+}
+
+/* Under prefers-reduced-motion, parked transforms above immediately display
+   the completed "Akshat." wordmark with the crane off-screen and zero animation. */
+@media (prefers-reduced-motion: no-preference) {
+  .rideGroup {
+    animation: ride 3.4s 0.9s linear backwards;
+  }
+
+  .periodAnimated {
+    animation: dotPlace 3.4s 0.9s linear backwards;
+  }
+
+  .armSvg {
+    animation: armRetract 3.4s 0.9s linear backwards;
+  }
+
+  .clawLeft,
+  .clawRight {
+    animation: clawOpen 3.4s 0.9s linear backwards;
+  }
+}
+
+@keyframes ride {
+  0% {
+    transform: translateY(-780px);
+    animation-timing-function: cubic-bezier(0.3, 0.85, 0.2, 1);
+  }
+  30%,
+  100% {
+    transform: translateY(-22px);
+  }
+}
+
+@keyframes clawOpen {
+  0%,
+  37% {
+    transform: rotate(var(--closed));
+    animation-timing-function: cubic-bezier(0.2, 0, 0.1, 1);
+  }
+  40% {
+    transform: rotate(calc(var(--open) * 1.12));
+    animation-timing-function: cubic-bezier(0.4, 0, 0.3, 1);
+  }
+  43%,
+  100% {
+    transform: rotate(var(--open));
+  }
+}
+
+@keyframes dotPlace {
+  0%,
+  42% {
+    transform: translateY(0px);
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 1);
+  }
+  51% {
+    transform: translateY(25px);
+    animation-timing-function: cubic-bezier(0.2, 0, 0.3, 1);
+  }
+  56% {
+    transform: translateY(18px);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.4, 1);
+  }
+  60% {
+    transform: translateY(23px);
+    animation-timing-function: cubic-bezier(0.3, 0, 0.3, 1);
+  }
+  64%,
+  100% {
+    transform: translateY(22px);
+  }
+}
+
+@keyframes armRetract {
+  0%,
+  48% {
+    transform: translateX(-50%) translateY(0px);
+    animation-timing-function: cubic-bezier(0.75, 0, 1, 1);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-760px);
+  }
+}

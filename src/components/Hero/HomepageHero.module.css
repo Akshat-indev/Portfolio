@@ -1,0 +1,464 @@
+/* Homepage Hero:
+   - Full-body character (`Port_FullBody.png`) in background on right
+   - ONE shared portrait layer (`Port_CloseUp.png`) clipped by all 4 window apertures
+   - Window interiors contain ONLY the shared artwork (only `akshat.webp` in title bars)
+   - Main hero text stays crisp & readable, never turning neon when overlapped */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: calc(100svh - var(--frame-top-bar) - var(--frame-inset));
+  min-height: 600px;
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.clipSvgDefs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Layer 1: Centered wireframe grid (non-interactive) */
+.wireframeWrapper {
+  position: absolute;
+  width: 78%;
+  height: 62%;
+  inset: 0;
+  margin: auto;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Layer 2: Original full-body character visible everywhere OUTSIDE the window masks */
+.baseCharacterMaskLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  mask: url(#hero-character-cutout);
+  -webkit-mask: url(#hero-character-cutout);
+}
+
+/* Identical geometry shared by the base character AND the masked animated word-character
+   so both layers align pixel-for-pixel across all window apertures */
+.characterBaseSlot,
+.wordCharacterOverlaySlot {
+  position: absolute;
+  right: 2.5vw;
+  bottom: 0;
+  height: 84%;
+  aspect-ratio: 2 / 3;
+  pointer-events: none;
+}
+
+.wordVideo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  background: transparent;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .characterBaseSlot,
+  .wordCharacterOverlaySlot {
+    animation: heroFadeIn 0.55s var(--ease-out-expo) backwards;
+  }
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Layer 3: ONE single globally positioned shared master portrait layer
+   clipped dynamically by the union of all 4 window apertures.
+   Transparent backdrop ensures the background full-body silhouette stays
+   visible behind windows that sit over the right side. */
+.sharedMaskedLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  background-color: transparent;
+  clip-path: url(#hero-mask-apertures);
+  pointer-events: none;
+}
+
+/* Positioned lower (109ichiki placement) so Window 2 (33.9%..58.9% X, 30%..82% Y)
+   frames the complete portrait face, hairline, chin, and upper jacket */
+.masterCharacterSlot {
+  position: absolute;
+  left: 23%;
+  top: 29.5%;
+  height: 104%;
+  aspect-ratio: 2 / 3;
+  pointer-events: none;
+}
+
+/* Layer 4: Main hero introduction text — centered in left area, stays readable */
+.introSlot,
+.craneOverlaySlot {
+  position: absolute;
+  top: 47%;
+  left: 6.5%;
+  width: min(470px, 38vw);
+  transform: translateY(-50%);
+}
+
+.introSlot {
+  z-index: 18;
+}
+
+/* Independent crane animation layer sitting above all draggable windows */
+.craneOverlayLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 44;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.ghostBlock {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Intro typography & Tania Rascia personal hierarchy */
+.introInner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hangingAnchor {
+  position: relative;
+  width: 100%;
+  height: 0;
+  pointer-events: none;
+}
+
+.headerBlock {
+  margin-bottom: 1.4rem;
+}
+
+.role {
+  margin-top: 0.7rem;
+  font-family: var(--font-sans);
+  font-size: clamp(1.05rem, 0.95rem + 0.35vw, 1.28rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-text-muted);
+}
+
+.bioBlock {
+  font-size: clamp(1rem, 0.95rem + 0.24vw, 1.12rem);
+  line-height: 1.7;
+  color: var(--color-text);
+  margin-bottom: 1.8rem;
+  max-width: 44ch;
+}
+
+.actionsRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding-top: 0.7rem;
+}
+
+.actionLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.actionLinks li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.sep {
+  opacity: 0.45;
+}
+
+.signatureSlot {
+  width: 0;
+  height: 0;
+}
+
+/* Layer 5: 4 thin-bordered draggable window frames (clean interiors, title bar only) */
+.windowsLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.dialogOuter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.dialogInner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-dialog);
+  background-color: transparent;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dialogInner {
+    animation: dialogPop 0.2s ease-out var(--stagger, 0.1s) backwards;
+  }
+}
+
+@keyframes dialogPop {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.dialogOuter[data-blink='true'] .dialogInner {
+  animation: dialogBlink 0.1s step-end infinite;
+}
+
+@keyframes dialogBlink {
+
+  0%,
+  49% {
+    opacity: 1;
+    border-color: var(--color-accent);
+  }
+
+  50%,
+  100% {
+    opacity: 0.15;
+    border-color: var(--color-border);
+  }
+}
+
+.dialogHeader {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  height: 28px;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.45rem 0 0.6rem;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+.dialogHeader:active {
+  cursor: grabbing;
+}
+
+.dialogTitle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dialogClose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--color-text);
+  transition: color var(--transition-ui);
+}
+
+.dialogClose:hover {
+  color: var(--color-accent);
+}
+
+.closeIcon {
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 10px;
+}
+
+.closeIcon::before,
+.closeIcon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+}
+
+.closeIcon::before {
+  transform: rotate(45deg);
+}
+
+.closeIcon::after {
+  transform: rotate(-45deg);
+}
+
+.dialogAperture {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
+  background: transparent;
+  overflow: hidden;
+  contain: layout paint;
+  pointer-events: none;
+}
+
+/* Subtle handwritten "move this" & curved arrow pointing toward upper-right window */
+.moveHint {
+  position: absolute;
+  left: 59.5%;
+  top: 22.5%;
+  z-index: 34;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.2rem;
+  color: var(--color-text);
+  opacity: 0.72;
+  transition: opacity 0.28s ease-out, visibility 0.28s ease-out;
+  pointer-events: none;
+  user-select: none;
+}
+
+.moveHint[data-hidden='true'] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.moveHintText {
+  font-family: 'Caveat', cursive;
+  font-size: 1.32rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  transform: rotate(-6deg);
+  display: inline-block;
+}
+
+.moveHintArrow {
+  width: 56px;
+  height: 42px;
+  margin-top: 4px;
+  overflow: visible;
+}
+
+/* Layer 7: 109ichiki bottom-left metadata & barcode */
+.bottomLeftMeta {
+  position: absolute;
+  left: 24px;
+  bottom: 18px;
+  z-index: 35;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  pointer-events: none;
+}
+
+.metaLabel {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--color-text);
+}
+
+.barcode {
+  font-family: var(--font-barcode);
+  font-size: 2.7rem;
+  line-height: 0.85;
+  color: var(--color-text);
+  user-select: none;
+}
+
+@media (max-width: 860px) {
+  .hero {
+    height: calc(100svh - var(--frame-top-bar) - var(--frame-inset) - 48px);
+    min-height: 560px;
+  }
+
+  .introSlot,
+  .craneOverlaySlot {
+    top: 4%;
+    left: 18px;
+    width: calc(100% - 36px);
+    transform: none;
+  }
+
+  .characterBaseSlot,
+  .wordCharacterOverlaySlot {
+    right: -2vw;
+    height: 54%;
+  }
+
+  .masterCharacterSlot {
+    left: 6%;
+    top: 52%;
+    height: 62%;
+  }
+
+  .moveHint {
+    left: 58%;
+    top: 49.5%;
+  }
+
+  .moveHintArrow {
+    width: 42px;
+    height: 32px;
+  }
+
+  .bottomLeftMeta {
+    left: 14px;
+    bottom: 10px;
+  }
+
+  .barcode {
+    font-size: 1.9rem;
+  }
+}

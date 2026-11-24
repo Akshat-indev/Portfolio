@@ -1,0 +1,70 @@
+/* Design Tokens — 109ichiki Monochrome Chrome + Sampled Fluorescent Accents */
+/* Strict rule: No CSS gradients. Monochrome chrome with selective sampled accents only. */
+
+:root,
+[data-theme='dark'] {
+  /* 109ichiki Dark Monochrome Chrome */
+  --color-bg: #101016;
+  --color-bg-elevated: #16161e;
+  --color-bg-hover: #1b1b25;
+  --color-text: #ffffff;
+  --color-text-muted: #a4a4a4;
+  --color-border: #a4a4a4;
+  --color-border-subtle: rgba(164, 164, 164, 0.34);
+  --color-grid-wire: rgba(164, 164, 164, 0.34);
+
+  /* Sampled 109ichiki Fluorescent Accents (from references/ichika_1.png) */
+  --color-accent: #fc64f4;
+  --color-accent-ink: #101016;
+  --color-accent-secondary: #00a0fc;
+
+  /* Inverted pill chrome (109ichiki active nav & social pills) */
+  --color-pill-bg: #ffffff;
+  --color-pill-text: #101016;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', Menlo, Monaco, Consolas, monospace;
+  --font-barcode: 'Libre Barcode 128', system-ui;
+
+  /* 109ichiki Outer Frame & Header Metrics */
+  --frame-inset: 18px;
+  --frame-top-bar: 26px;
+  --frame-radius: 10px;
+  --radius-dialog: 3px;
+  --radius-pill: 999px;
+
+  /* Motion Curves */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-ui: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme='light'] {
+  /* 109ichiki Light Monochrome Chrome */
+  --color-bg: #f3f3ff;
+  --color-bg-elevated: #eaeaf8;
+  --color-bg-hover: #e2e2f4;
+  --color-text: #101016;
+  --color-text-muted: #565656;
+  --color-border: #565656;
+  --color-border-subtle: rgba(86, 86, 86, 0.32);
+  --color-grid-wire: rgba(86, 86, 86, 0.3);
+
+  --color-accent: #fc64f4;
+  --color-accent-ink: #101016;
+  --color-accent-secondary: #00a0fc;
+
+  --color-pill-bg: #101016;
+  --color-pill-text: #f3f3ff;
+}
+
+@media (max-width: 820px) {
+  :root,
+  [data-theme='dark'],
+  [data-theme='light'] {
+    --frame-inset: 12px;
+    --frame-top-bar: 24px;
+  }
+}

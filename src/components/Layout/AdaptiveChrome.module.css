@@ -1,0 +1,325 @@
+/* Adaptive Navigation Chrome:
+   - Thin rounded 109ichiki outer frame at all sizes
+   - >= 1080px: 109ichiki compact top pill nav with Tania Rascia destinations
+   - 768px..1079px: Tania Rascia left sidebar (never duplicated with top nav)
+   - < 768px: Compact mobile header + collapsible drawer */
+
+.topCornerStrip {
+  position: fixed;
+  top: 4px;
+  right: calc(var(--frame-inset) + 4px);
+  height: calc(var(--frame-top-bar) - 6px);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  z-index: 60;
+}
+
+.themeDots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.themeDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  transition: border-color var(--transition-ui), transform var(--transition-ui);
+}
+
+.themeDotLight {
+  background-color: #f3f3ff;
+}
+
+.themeDotDark {
+  background-color: #101016;
+}
+
+.themeDot[data-active='true'] {
+  border-color: var(--color-accent);
+  transform: scale(1.15);
+}
+
+.cornerMode {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.outerFrame {
+  position: fixed;
+  top: var(--frame-top-bar);
+  right: var(--frame-inset);
+  bottom: var(--frame-inset);
+  left: var(--frame-inset);
+  border: 1px solid var(--color-border);
+  border-radius: var(--frame-radius);
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* >= 1080px: 109ichiki Compact Top Bar */
+.topHeader {
+  position: fixed;
+  top: calc(var(--frame-top-bar) + 16px);
+  left: calc(var(--frame-inset) + 22px);
+  right: calc(var(--frame-inset) + 22px);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  z-index: 45;
+  pointer-events: none;
+}
+
+.logo {
+  justify-self: start;
+  display: inline-flex;
+  color: var(--color-text);
+  pointer-events: auto;
+  transition: color var(--transition-ui);
+}
+
+.logo:hover {
+  color: var(--color-accent);
+}
+
+.navPill {
+  justify-self: center;
+  pointer-events: auto;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 5px;
+  background-color: var(--color-bg);
+  padding: 4px;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.34rem 0.85rem;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  white-space: nowrap;
+  transition: color var(--transition-ui), background-color var(--transition-ui);
+}
+
+.navLink:hover:not(.navLinkActive) {
+  color: var(--color-accent);
+}
+
+.navLinkActive {
+  background-color: var(--color-pill-bg);
+  color: var(--color-pill-text);
+}
+
+.socialPills {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: auto;
+}
+
+.socialPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-pill-bg);
+  color: var(--color-pill-text);
+  border: 1px solid var(--color-pill-bg);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  transition: background-color var(--transition-ui), color var(--transition-ui), border-color var(--transition-ui);
+}
+
+.socialPill:hover,
+.socialPill:focus-visible {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+.arrow {
+  font-size: 0.8em;
+  line-height: 1;
+}
+
+/* 768px..1079px: Tania Rascia Left Sidebar inside the thin outer frame */
+.sidebar {
+  position: fixed;
+  top: var(--frame-top-bar);
+  left: var(--frame-inset);
+  bottom: var(--frame-inset);
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--color-bg);
+  border-right: 1px solid var(--color-border-subtle);
+  border-top-left-radius: var(--frame-radius);
+  border-bottom-left-radius: var(--frame-radius);
+  z-index: 45;
+  overflow-y: auto;
+}
+
+.sidebarTop {
+  padding: 1.25rem 1rem 0;
+}
+
+.sidebarSection {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.sidebarSection:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.sidebarBrand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--color-text);
+}
+
+.brandSquare {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border: 1px solid var(--color-border);
+  position: relative;
+}
+
+.brandSquare::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background-color: var(--color-accent);
+}
+
+.brandName {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.sidebarBio {
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.sidebarList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sidebarLink {
+  display: block;
+  padding: 0.42rem 0.65rem;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  transition: background-color var(--transition-ui), color var(--transition-ui);
+}
+
+.sidebarLink:hover:not(.sidebarLinkActive) {
+  background-color: var(--color-bg-hover);
+  color: var(--color-accent);
+}
+
+.sidebarLinkActive {
+  background-color: var(--color-pill-bg);
+  color: var(--color-pill-text);
+}
+
+.sidebarBottom {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.9rem 1rem 1.15rem;
+  border-top: 1px solid var(--color-border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+
+.divider {
+  width: 1px;
+  height: 9px;
+  background-color: var(--color-border-subtle);
+}
+
+/* < 768px: Compact Mobile Bar + Drawer */
+.mobileHeader {
+  position: fixed;
+  top: var(--frame-top-bar);
+  left: var(--frame-inset);
+  right: var(--frame-inset);
+  height: 48px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border-subtle);
+  border-top-left-radius: var(--frame-radius);
+  border-top-right-radius: var(--frame-radius);
+  z-index: 45;
+}
+
+.menuButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 30px;
+  height: 30px;
+  padding: 0 5px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 3px;
+}
+
+.menuBar {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--color-text);
+}
+
+.mobileDrawer {
+  position: fixed;
+  top: calc(var(--frame-top-bar) + 48px);
+  left: var(--frame-inset);
+  right: var(--frame-inset);
+  padding: 0.85rem 1rem 1rem;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 44;
+}
