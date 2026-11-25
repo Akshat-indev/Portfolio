@@ -1,11 +1,17 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type MutableRefObject } from 'react';
 import styles from './WavyWireframeGrid.module.css';
+
+interface WavyWireframeGridProps {
+  theme: 'dark' | 'light';
+  /** Pauses the 60fps canvas grid while the expanded technical skills window covers the hero */
+  pausedRef?: MutableRefObject<boolean>;
+}
 
 /**
  * Faithfully recreates 109ichiki's undulating Canvas 2D wireframe grid
  * ([data-js="grid"][data-outline="true"]) behind the hero masking composition.
  */
-export function WavyWireframeGrid({ theme }: { theme: 'dark' | 'light' }) {
+export function WavyWireframeGrid({ theme, pausedRef }: WavyWireframeGridProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -98,7 +104,9 @@ export function WavyWireframeGrid({ theme }: { theme: 'dark' | 'light' }) {
     }
 
     const loop = (now: number) => {
-      draw(now / 1000);
+      if (!document.hidden && !pausedRef?.current) {
+        draw(now / 1000);
+      }
       rafId = requestAnimationFrame(loop);
     };
     rafId = requestAnimationFrame(loop);
@@ -107,7 +115,7 @@ export function WavyWireframeGrid({ theme }: { theme: 'dark' | 'light' }) {
       cancelAnimationFrame(rafId);
       observer.disconnect();
     };
-  }, [theme]);
+  }, [theme, pausedRef]);
 
   return <canvas ref={canvasRef} className={styles.grid} aria-hidden="true" />;
 }

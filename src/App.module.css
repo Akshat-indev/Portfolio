@@ -9,7 +9,7 @@
   position: relative;
   width: 100%;
   border-radius: var(--frame-radius);
-  overflow: hidden;
+  overflow: clip;
 }
 
 /* When adaptive navigation switches to Tania's left sidebar (768px..1079px),

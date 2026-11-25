@@ -1,0 +1,26 @@
+.orbShell {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: center center;
+  will-change: transform, opacity, filter;
+  pointer-events: none;
+  user-select: none;
+  touch-action: none;
+  cursor: grab;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 50%;
+}
+
+.orbShell[data-orb-held='true'] {
+  cursor: grabbing;
+}
+
+.orbSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}

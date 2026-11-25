@@ -1,0 +1,239 @@
+/* High-Contrast Monochrome Technical Skills Cosmic Scene + 3D Depth Parallax + Godspeed Electricity:
+     1. Background (z-index: 1) — selectively grayscale 1.15x black-hole video in deep 3D plane
+     2. Middle     (z-index: 2) — UNFILTERED middle-ground 3D plane reserved for coloured skill orbs
+     3. Foreground (z-index: 3) — closest 3D plane with darkened monochrome character, depth-offset shadow,
+        restrained glowing white eyes, and full-bounds procedural Canvas 2D electrical discharges.
+   Strict rule: No global colour filters, no silhouette outline aura, no coloured lighting, no CSS gradients. */
+
+.cosmicScene {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: transparent;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+  isolation: isolate;
+  perspective: 1150px;
+  perspective-origin: 50% 48%;
+}
+
+/* Plane 1: Deep Background — selectively monochrome high-contrast black-hole video */
+.backgroundLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: #050505;
+  overflow: hidden;
+  opacity: 0;
+  will-change: opacity;
+  pointer-events: none;
+  perspective: 1150px;
+}
+
+/* 1.14 overscan keeps full-bleed edges intact under noticeable 3D parallax & rotation */
+.backgroundParallax {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(0, 0, -80px) scale(1.14);
+  transform-origin: center center;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Selective grayscale + cinematic contrast (preserves both shadow wisps & bright accretion detail) */
+.blackHoleVideo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  filter: grayscale(100%) contrast(1.18) brightness(0.9);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Neutral charcoal atmospheric darkening — zero colour cast */
+.atmosphereVeil {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(6, 6, 6, 0.34);
+  pointer-events: none;
+}
+
+/* Plane 3: Foreground Character — sits at z-index: 20 so back orbs (z: 6..16) are occluded
+   behind the character while front-arc orbs (z: 30..45) sweep in front of his lower coat */
+.foregroundLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  perspective: 1150px;
+  perspective-origin: 50% 52%;
+  pointer-events: none;
+}
+
+/* Scroll-driven reveal container (opacity, gentle scale settle, subtle lift — zero React re-renders) */
+.characterReveal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  transform: translate3d(0, 108%, 0);
+  transform-origin: center bottom;
+  will-change: opacity, transform;
+  pointer-events: none;
+}
+
+/* Sized ~8% smaller (width: 90%, height: 85% with -18px bottom bleed so +/-10px vertical parallax never gaps) */
+.characterParallax {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  height: 85%;
+  margin-bottom: -18px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transform-origin: center 65%;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.characterStage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Depth-shifted occlusion shadow container lagging slightly behind character during parallax */
+.shadowParallaxWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.characterLayerImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Layer 3A: Deep neutral occlusion shadow separating character cleanly from the monochrome accretion disk */
+.characterDepthShadow {
+  filter: drop-shadow(0 16px 34px rgba(0, 0, 0, 0.94))
+          drop-shadow(0 3px 12px rgba(0, 0, 0, 0.96));
+  opacity: 0.95;
+}
+
+/* Layer 3B: High-contrast monochrome character base — preserves crisp grayscale detail */
+.characterImage {
+  z-index: 4;
+  filter: grayscale(100%) contrast(1.24) brightness(0.8);
+}
+
+/* Layer 3C: Silhouette-exact black darkening veil ("more black" layer without crushing details) */
+.characterDarkVeil {
+  z-index: 5;
+  filter: brightness(0);
+  opacity: 0.28;
+}
+
+/* Layer 3D: Pixel-locked SVG overlay for restrained glowing white eyes (sits above dark veil) */
+.characterEnergyOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  opacity: var(--energy-level, 0);
+  will-change: opacity;
+  pointer-events: none;
+}
+
+.characterEnergySvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Restrained glowing white eyes with occasional contained-energy brightness swells */
+.eyesGlowGroup {
+  opacity: 0.62;
+  animation: eyeEnergyBreath 7.6s ease-in-out infinite;
+  will-change: opacity;
+}
+
+/* Layer 3E: Full-bounds procedural Godspeed electrical discharge canvas above & around character */
+.electricityCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@keyframes eyeEnergyBreath {
+  0%,
+  44%,
+  100% {
+    opacity: 0.54;
+  }
+  56% {
+    opacity: 0.78;
+  }
+  64% {
+    opacity: 0.6;
+  }
+  74% {
+    opacity: 0.94;
+  }
+  84% {
+    opacity: 0.58;
+  }
+}
+
+@media (max-width: 960px) {
+  .characterParallax {
+    width: 92%;
+    height: 82%;
+    margin-bottom: -14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .characterParallax {
+    width: 94%;
+    height: 80%;
+    margin-bottom: -12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backgroundParallax {
+    transform: scale(1.02);
+  }
+
+  .eyesGlowGroup {
+    animation: none;
+    opacity: 0.68;
+  }
+}

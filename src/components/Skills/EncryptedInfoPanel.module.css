@@ -1,0 +1,229 @@
+/* Minimal Monochrome Editorial Profile Panel
+   Clean editorial proportions, lightweight display heading, crisp scanning barcode,
+   generous negative space, zero cards/boxes/terminal chrome. */
+
+.panel {
+  position: absolute;
+  top: clamp(44px, 8.8%, 88px);
+  left: clamp(28px, 2.6%, 44px);
+  z-index: 26;
+  width: clamp(220px, 18vw, 272px);
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity;
+  pointer-events: none;
+  user-select: none;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.85);
+}
+
+.headerBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+.profileHeading {
+  font-family: var(--font-heading, 'Outfit', var(--font-sans));
+  font-size: clamp(2.05rem, 2.75vw, 2.85rem);
+  font-weight: 200;
+  line-height: 0.96;
+  letter-spacing: 0.055em;
+  color: #ffffff;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.barcodeWrap {
+  position: relative;
+  width: 112px;
+  height: 15px;
+  color: rgba(255, 255, 255, 0.84);
+  opacity: 0;
+  will-change: opacity;
+}
+
+.barcodeClip {
+  width: 100%;
+  height: 100%;
+  clip-path: inset(0 100% 0 0);
+  will-change: clip-path;
+}
+
+.barcodeSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.scanLine {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: 0;
+  width: 1.5px;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  pointer-events: none;
+  will-change: left, opacity;
+}
+
+/* Generous editorial vertical whitespace separating header from biography */
+.bioBlock {
+  margin-top: clamp(2.15rem, 5vh, 3.6rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.name {
+  font-family: var(--font-heading, 'Outfit', var(--font-sans));
+  font-size: clamp(1.2rem, 1.38vw, 1.44rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.015em;
+  color: #ffffff;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.descriptor {
+  margin-top: 0.3rem;
+  font-family: var(--font-sans);
+  font-size: clamp(0.73rem, 0.78vw, 0.8rem);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: rgba(212, 212, 218, 0.62);
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.introCopy {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.68rem;
+}
+
+.introLead {
+  font-family: var(--font-sans);
+  font-size: clamp(0.84rem, 0.92vw, 0.93rem);
+  font-weight: 400;
+  line-height: 1.58;
+  letter-spacing: 0.005em;
+  color: rgba(245, 245, 248, 0.94);
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.introBody {
+  font-family: var(--font-sans);
+  font-size: clamp(0.79rem, 0.85vw, 0.87rem);
+  font-weight: 300;
+  line-height: 1.68;
+  letter-spacing: 0.005em;
+  color: rgba(214, 214, 222, 0.76);
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+/* Tablet layout: restrained top-left spacing clear of left-side orbs */
+@media (max-width: 1120px) {
+  .panel {
+    top: 26px;
+    left: 24px;
+    width: clamp(208px, 24vw, 250px);
+  }
+
+  .profileHeading {
+    font-size: 1.72rem;
+  }
+
+  .barcodeWrap {
+    width: 94px;
+    height: 13px;
+  }
+
+  .bioBlock {
+    margin-top: 1.55rem;
+  }
+
+  .name {
+    font-size: 1.08rem;
+  }
+
+  .descriptor {
+    font-size: 0.69rem;
+  }
+
+  .introCopy {
+    margin-top: 0.9rem;
+    gap: 0.5rem;
+  }
+
+  .introLead {
+    font-size: 0.78rem;
+  }
+
+  .introBody {
+    font-size: 0.74rem;
+    line-height: 1.56;
+  }
+}
+
+/* Mobile portrait: sits cleanly in the open upper cosmos above the entire orbital ring */
+@media (max-width: 640px) {
+  .panel {
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    width: auto;
+    max-width: 344px;
+  }
+
+  .headerBlock {
+    gap: 0.48rem;
+  }
+
+  .profileHeading {
+    font-size: 1.62rem;
+  }
+
+  .barcodeWrap {
+    width: 88px;
+    height: 12px;
+  }
+
+  .bioBlock {
+    margin-top: 1.15rem;
+  }
+
+  .name {
+    font-size: 1.04rem;
+  }
+
+  .descriptor {
+    margin-top: 0.2rem;
+    font-size: 0.68rem;
+  }
+
+  .introCopy {
+    margin-top: 0.72rem;
+    gap: 0.42rem;
+  }
+
+  .introLead {
+    font-size: 0.78rem;
+    line-height: 1.48;
+  }
+
+  .introBody {
+    font-size: 0.73rem;
+    line-height: 1.52;
+  }
+}

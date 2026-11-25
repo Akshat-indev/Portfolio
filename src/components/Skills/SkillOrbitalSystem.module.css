@@ -1,0 +1,26 @@
+/* Non-stacking measurement probe (NO z-index, transform, or opacity) */
+.measureLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Back-plane soft ambient white orb glow (strictly behind character z: 20, zero connecting lines) */
+.glowCanvasBack {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Front-plane soft ambient white orb glow (in front of character z: 20, behind front orbs z: 30..45) */
+.glowCanvasFront {
+  position: absolute;
+  inset: 0;
+  z-index: 24;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}

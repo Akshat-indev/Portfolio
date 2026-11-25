@@ -10,6 +10,7 @@ html {
   color: var(--color-text);
   font-family: var(--font-sans);
   line-height: 1.55;
+  overscroll-behavior-y: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -20,7 +21,8 @@ body {
   min-height: 100svh;
   background-color: var(--color-bg);
   color: var(--color-text);
-  overflow-x: hidden;
+  overflow-x: clip;
+  overscroll-behavior-y: none;
 }
 
 a {
